@@ -1,0 +1,10 @@
+<header>Parent: localhost:4000</header>
+<input name="val"/> <br>
+<iframe></iframe>
+<script>
+    const input = document.querySelector('input');
+    const iframe = document.querySelector('iframe');
+    input.addEventListener('input', () => {
+        iframe.src = `http://localhost:4001/child.html#${encodeURIComponent(input.value)}`;
+    })
+</script>

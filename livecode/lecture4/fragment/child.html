@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Child</title>
+    </head>
+    <body>
+        <h1>Child: localhost:4001</h1>
+        <div></div>
+        <script>
+            const div = document.querySelector('div');
+            setInterval(() => {
+                // 这段代码尝试获取当前页面URL的哈希部分（即#后面的部分），使用decodeURIComponent函数解码任何URL编码的字符，然后使用slice(1)去除第一个字符（即#），并将结果设置为<div>元素的文本内容。 
+                div.textContent = decodeURIComponent(window.location.hash).slice(1);
+            }, 100)
+        </script>
+    </body>
+
+</html>
+
