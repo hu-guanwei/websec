@@ -1,8 +1,10 @@
 ### Signing
 
 - $G \to (pk,\ sk)$
-- $S(pk,\ x) \to t$
-- $V(sk,\ x,\ t) \to \text{Accept}$
+- $S(sk,\ x) \to t$
+- $V(pk,\ x,\ t) \to \text{Accept}$
+
+use secret key $sk$ to sign, use public key $pk$ to verify.
 
 ### How to use `SessionId`
 
