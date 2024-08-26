@@ -5,15 +5,15 @@ app.get('/data', (req ,res) => {
 
 	const callback = req.query.callback;
 	const data = {"top secret": "666"};
+	res.setHeader('Content-Type', 'application/javascript');
 
-	if (callback) {
+	if (callback) {	
 		res.send(`${callback}(${JSON.stringify(data)});`);
 	} else {
-		res.setHeader('Content-Type', 'application/javascript');
 		res.send(JSON.stringify(data));
 	}
 });
 
 app.listen(3000, () => {
-	console.log('to data, go localhost:3000/data');
+	console.log('to get data, go localhost:3000/data');
 })
