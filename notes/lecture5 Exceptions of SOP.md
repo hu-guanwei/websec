@@ -58,7 +58,7 @@ Don't rely on referer.
 
 Another gotcha: 考虑转发了多次而且 Some sites can opt out of sending `Referer` header. Think about google doc. Some doc link should be kept secret.
 
-再来一个post请求的例子，用`<form>`tag构造payload，然后在`<script>`tag中提交表单.
+再来一个post请求的例子，用`<form>`tag构造payload，然后在`<script>`tag中提交表单. 同源策略并不禁止跨站点提交表单。
 ```html
 <!doctype html>
 <html>
@@ -89,7 +89,7 @@ cookies care about domian and path but path is ineffective
 Cookie of a website can be accessed by same or more specific domains. Different origins can mess with each others cookies (e.g. attacker.stanford.edu can set cookies for stanford.edu)
 - Cookies are more specific than Same Origin Policy: `Path` is ineffective because same origin pages can access each other's DOMs (think about embedding a page as an iframe and then reading its the iframe's cookie. So use `httpOnly`!) 
 
-#### Cross-Site Script Inclusion
+#### Tighten Up SOP
   
 Q: Can we configure Same Origin Policy? <br>
 A: Yes.
